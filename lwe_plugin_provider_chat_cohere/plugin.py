@@ -38,11 +38,6 @@ class ProviderChatCohere(Provider):
     def customization_config(self):
         return {
             'model': PresetValue(str, options=self.available_models),
-            'max_tokens': PresetValue(int, include_none=True),
             'temperature': PresetValue(float, min_value=0.0, max_value=5.0),
-            'preamble_override': PresetValue(str, include_none=True),
-            'prompt_truncation': PresetValue(str, options=['AUTO', 'OFF'], include_none=True),
-            'search_queries_only': PresetValue(bool, include_none=True),
-            'citation_quality': PresetValue(str, options=['accurate', 'fast'], include_none=True),
             'cohere_api_key': PresetValue(str, include_none=True, private=True),
         }

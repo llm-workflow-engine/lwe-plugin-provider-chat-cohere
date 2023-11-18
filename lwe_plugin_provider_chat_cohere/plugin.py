@@ -4,9 +4,10 @@ from lwe.core.provider import Provider, PresetValue
 
 COHERE_DEFAULT_MODEL = "command"
 
+
 class ProviderChatCohere(Provider):
     """
-    Access to Cohere models
+    Access to Cohere chat models.
     """
 
     @property

@@ -1,4 +1,4 @@
-from langchain_community.chat_models import ChatCohere
+from langchain_cohere import ChatCohere
 
 from lwe.core.provider import Provider, PresetValue
 
@@ -25,6 +25,12 @@ class ProviderChatCohere(Provider):
                 },
                 'command-light': {
                     'max_tokens': 4096,
+                },
+                'command-r': {
+                    "max_tokens": 131072,
+                },
+                'command-r-plus': {
+                    "max_tokens": 131072,
                 },
             }
         }

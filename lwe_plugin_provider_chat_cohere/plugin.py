@@ -2,7 +2,15 @@ from langchain_cohere import ChatCohere
 
 from lwe.core.provider import Provider, PresetValue
 
-COHERE_DEFAULT_MODEL = "command"
+COHERE_DEFAULT_MODEL = "command-r-plus"
+
+
+class CustomChatCohere(ChatCohere):
+
+    @property
+    def _llm_type(self):
+        """Return type of llm."""
+        return "chat_cohere"
 
 
 class ProviderChatCohere(Provider):
@@ -40,7 +48,7 @@ class ProviderChatCohere(Provider):
         return COHERE_DEFAULT_MODEL
 
     def llm_factory(self):
-        return ChatCohere
+        return CustomChatCohere
 
     def customization_config(self):
         return {

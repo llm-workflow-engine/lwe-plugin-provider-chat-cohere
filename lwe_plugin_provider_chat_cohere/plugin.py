@@ -53,9 +53,14 @@ class ProviderChatCohere(Provider):
     def llm_factory(self):
         return CustomChatCohere
 
+    def transform_tool(self, tool):
+        return self.transform_openai_tool_spec_to_json_schema_spec(tool)
+
     def customization_config(self):
         return {
             'model': PresetValue(str, options=self.available_models),
             'temperature': PresetValue(float, min_value=0.0, max_value=5.0),
             'cohere_api_key': PresetValue(str, include_none=True, private=True),
+            "tools": None,
+            "tool_choice": None,
         }

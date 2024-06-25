@@ -27,25 +27,28 @@ class ProviderChatCohere(Provider):
         return {
             "chat": True,
             'validate_models': True,
-            'models': {
-                'command': {
-                    'max_tokens': 4096,
-                },
-                'command-light': {
-                    'max_tokens': 4096,
-                },
-                'command-r': {
-                    "max_tokens": 131072,
-                },
-                'command-r-plus': {
-                    "max_tokens": 131072,
-                },
-            }
         }
 
     @property
     def default_model(self):
         return COHERE_DEFAULT_MODEL
+
+    @property
+    def static_models(self):
+        return {
+            'command': {
+                'max_tokens': 4096,
+            },
+            'command-light': {
+                'max_tokens': 4096,
+            },
+            'command-r': {
+                "max_tokens": 131072,
+            },
+            'command-r-plus': {
+                "max_tokens": 131072,
+            },
+        }
 
     def prepare_messages_method(self):
         return self.prepare_messages_for_llm_chat

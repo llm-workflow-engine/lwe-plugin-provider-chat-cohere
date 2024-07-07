@@ -1,3 +1,5 @@
+import cohere
+
 from langchain_cohere import ChatCohere
 
 from lwe.core.provider import Provider, PresetValue
@@ -33,22 +35,14 @@ class ProviderChatCohere(Provider):
     def default_model(self):
         return COHERE_DEFAULT_MODEL
 
-    @property
-    def static_models(self):
-        return {
-            'command': {
-                'max_tokens': 4096,
-            },
-            'command-light': {
-                'max_tokens': 4096,
-            },
-            'command-r': {
-                "max_tokens": 131072,
-            },
-            'command-r-plus': {
-                "max_tokens": 131072,
-            },
-        }
+    def fetch_models(self):
+        try:
+            client = cohere.Client()
+            model_data = client.models.list()
+            models = {model.name: {'max_tokens': model.context_length} for model in model_data.models if 'chat' in model.endpoints}
+            return models
+        except Exception as e:
+            raise ValueError(f"Could not retrieve models: {e}")
 
     def prepare_messages_method(self):
         return self.prepare_messages_for_llm_chat

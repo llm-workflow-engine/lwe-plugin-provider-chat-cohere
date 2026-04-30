@@ -1,1 +1,1 @@
-langchain-cohere>=0.1.0
+langchain-cohere>=0.5.1
